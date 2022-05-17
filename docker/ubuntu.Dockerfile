@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     libapache2-mod-php \
     libapache2-mod-shib2
 
-RUN echo 'ServerName $HOSTNAME' >> /etc/apache2/apache2.conf
+RUN echo 'ServerName localhost' >> /etc/apache2/apache2.conf
 
 # Set the shibb authentication module
 COPY ./docker/etc/apache2/conf-enabled/shib.conf /etc/apache2/conf-enabled/shib.conf
@@ -25,7 +25,7 @@ RUN a2enmod ssl
 RUN a2ensite default-ssl.conf
 # Uncomment to generate certs
 # RUN mkdir /etc/apache2/ssl
-# RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt -subj "/C=US/ST=New_York/L=Ithaca/O=Cornell/OU=SSIT/CN=$HOSTNAME"
+# RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt -subj "/C=US/ST=New_York/L=Ithaca/O=Cornell/OU=SSIT/CN=localhost"
 
 # Enable modules
 RUN a2enmod auth_basic

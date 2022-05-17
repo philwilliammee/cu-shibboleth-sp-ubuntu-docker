@@ -2,8 +2,6 @@ version: "3.7"
 services:
   web-server:
     container_name: cuwebauth-dev-web-server
-    env_file:
-      - ./docker/web-server.env
     build:
       dockerfile: ./docker/ubuntu.Dockerfile
       context: .
