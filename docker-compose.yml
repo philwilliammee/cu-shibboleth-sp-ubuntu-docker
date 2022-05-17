@@ -1,11 +1,11 @@
 version: "3.7"
 services:
   web-server:
-    container_name: cuwebauth-dev-web-server
+    container_name: cushib-dev-web-server
     build:
       dockerfile: ./docker/ubuntu.Dockerfile
       context: .
-    restart: always
+    # restart: always
     volumes:
       - "./web:/var/www/html/"
     ports:
