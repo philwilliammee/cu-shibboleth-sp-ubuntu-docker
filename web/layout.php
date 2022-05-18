@@ -57,7 +57,7 @@ function render(string $content)
         <ul>
             <li><a href='/'>Home</a></li>
             <li><a href='/secure'>$secure_icon Secure</a></li>
-            <li><a href='/Shibboleth.sso/Login?target=https://localhost/' >Login</a></li>
+            <li><a href='/Shibboleth.sso/Login' >Login</a></li>
             <li><a href='/Shibboleth.sso/Logout'>Logout</a></li>
             <li><a href='/Shibboleth.sso/Session'>Session</a></li>
             <li><a href='/Shibboleth.sso/Metadata'>Metadata</a></li>
