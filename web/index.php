@@ -11,7 +11,7 @@ $script = <<<HTML
             console.log(data);
             if (data && data.includes('A valid session was not found.')) {
                 root.html('<p>You are not logged in.</p>');
-                root.append('<p><a href="/Shibboleth.sso/Login>Login</a></p>');
+                root.append('<p><a href="/Shibboleth.sso/Login">Login</a></p>');
             } else if (data && data.includes('Attributes')) {
                 root.html('<p>You are logged in.</p>');
                 root.append(data);
