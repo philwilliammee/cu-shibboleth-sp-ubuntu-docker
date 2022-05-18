@@ -9,6 +9,6 @@ services:
     volumes:
       - "./web:/var/www/html/"
     ports:
-      - "8082:80"
+      - "80:80"
       - "443:443"
     tty: true
