@@ -23,7 +23,7 @@ function render(string $content)
             background-color: #eee;
             padding: 15px;
             margin-bottom: 20px;
-        } 
+        }
         #main-nav ul {
             list-style: none;
             padding: 0;
@@ -50,7 +50,7 @@ function render(string $content)
     <p>
         This is a simple Shibboleth Service Provider (SP) on Ubuntu Linux.
         It is a simple PHP application that uses the <a href='https://shibboleth.net/'>Shibboleth</a>
-        authentication framework to authenticate users. This repo contains a Docker Compose file that implements 
+        authentication framework to authenticate users. This repo contains a Docker Compose file that implements
         the <a href='https://confluence.cornell.edu/display/SHIBBOLETH/Install+Shibboleth+Service+Provider+on+Linux'>CU-SHIBB-SP-LINUX</a> instructions,
     </p>
     <nav id='main-nav'>
@@ -62,6 +62,8 @@ function render(string $content)
             <li><a href='/Shibboleth.sso/Session'>Session</a></li>
             <li><a href='/Shibboleth.sso/Metadata'>Metadata</a></li>
             <li><a href='/Shibboleth.sso/DiscoFeed'>DiscoFeed</a></li>
+            |
+            <li><a href='/oci8'>oci8</a></li>
         </ul>
     </nav>
         $content

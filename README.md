@@ -1,6 +1,6 @@
 # Docker Shibboleth Service Provider on Ubuntu Linux
 
-This is a docker container that builds and runs a web server that provides a web based authentication system. Based on the instructions found in the [	
+This is a docker container that builds and runs a web server that provides a web based authentication system. Based on the instructions found in the [
 Shibboleth at Cornell Documentation](https://confluence.cornell.edu/display/SHIBBOLETH/Install+Shibboleth+Service+Provider+on+Linux).
 
 ## Docker Commands
@@ -24,3 +24,7 @@ bash run.sh test
 ```
 
 Then goto [https://localhost/ ](https://localhost/ ) and you should see a login page.
+
+if you get error on your local machine: `Error starting userland proxy: listen tcp 0.0.0.0:80: bind: address already in use`
+
+Then you should change the ports:80 in docker compose to use a different port.
