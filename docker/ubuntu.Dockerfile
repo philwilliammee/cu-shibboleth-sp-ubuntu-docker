@@ -4,6 +4,7 @@ WORKDIR /var/www/html
 
 ENV TZ=America/New_York
 ENV DEBIAN_FRONTEND noninteractive
+ENV LD_LIBRARY_PATH="/usr/local/instantclient"
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
@@ -12,8 +13,14 @@ RUN apt-get update && apt-get install -y \
     apache2-utils \
     php \
     php-common \
+    php-dev\
+    php-pear \
+    build-essential \
+    libaio1 \
     libapache2-mod-php \
-    libapache2-mod-shib2
+    libapache2-mod-shib2 \
+    zip \
+    unzip
 
 RUN echo 'ServerName localhost' >> /etc/apache2/apache2.conf
 
@@ -36,11 +43,32 @@ RUN a2enmod rewrite
 COPY ./docker/etc/shibboleth/*.pem /etc/shibboleth/
 COPY ./docker/etc/shibboleth/*.xml /etc/shibboleth/
 
-# Add file permissions
-# RUN LD_LIBRARY_PATH=/opt/shibboleth/lib64 /sbin/shibd -t 
-# RUN service shibd start 
-# RUN chown -R _shibd:_shibd /var/log/shibboleth/*.log
-# it may also be required to chown _shibd sp-*.pem
+# Oracle instantclient
+
+# copy oracle files
+ADD https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-basic-linux.x64-21.1.0.0.0.zip /tmp/
+ADD https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-sdk-linux.x64-21.1.0.0.0.zip /tmp/
+ADD https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-sqlplus-linux.x64-21.1.0.0.0.zip /tmp/
+
+# unzip them
+RUN unzip /tmp/instantclient-basic-linux.x64-*.zip -d /usr/local/ \
+    && unzip /tmp/instantclient-sdk-linux.x64-*.zip -d /usr/local/ \
+    && unzip /tmp/instantclient-sqlplus-linux.x64-*.zip -d /usr/local/
+
+# install oci8
+RUN ln -s /usr/local/instantclient_*_1 /usr/local/instantclient \
+    && ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
+
+RUN pecl channel-update pecl.php.net
+RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8-2.2.0
+
+#enable php extension
+RUN echo "extension=oci8.so" >> /etc/php/7.4/cli/php.ini
+RUN echo "extension=oci8.so" >> /etc/php/7.4/apache2/php.ini
+
+RUN echo /usr/local/instantclient/ > /etc/ld.so.conf.d/oracle-insantclient.conf \
+    && ldconfig
+
 
 EXPOSE 80 443
 
