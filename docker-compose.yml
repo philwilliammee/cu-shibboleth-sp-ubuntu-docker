@@ -3,7 +3,7 @@ services:
   web-server:
     container_name: cushib-dev-web-server
     build:
-      dockerfile: ./docker/ubuntu.Dockerfile
+      dockerfile: ./Dockerfile
       context: .
     # restart: always
     volumes:
